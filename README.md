@@ -51,6 +51,7 @@ Prerequisites:
 Regular User:
 - GMAIL:testCommunityUser82@gmail.com
 - PASSWORD: TestUser82!
+  
 Staff User:
 - GMAIL:testStaffUser82@gmail.com
 - PASSWORD:testStaffUser82
