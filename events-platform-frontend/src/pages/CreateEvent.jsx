@@ -4,6 +4,8 @@ import axios from "axios";
 import { supabase } from "../supabaseClient";
 import Error from "../components/Error"; 
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export default function CreateEvent() {
   const [form, setForm] = useState({
     title: "",
@@ -31,7 +33,7 @@ export default function CreateEvent() {
       }
 
       await axios.post(
-        "https://events-platform-backend-yutm.onrender.com/api/events/create",
+        `${BACKEND_URL}/api/events/create`,
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );

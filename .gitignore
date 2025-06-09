@@ -6,3 +6,6 @@
 /events-platform-frontend/node_modules/
 /events-platform-frontend/.env
 
+
+# Local Netlify folder
+.netlify
