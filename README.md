@@ -35,8 +35,8 @@ Prerequisites:
   - VITE_SUPABASE_URL
   - VITE_SUPABASE_CLIENT
 ## Installation:
-- git clone <this-repo>
-- cd <this-repo>
+- git clone this-repo
+- cd this-repo
   - cd events-platform-backend
   - npm install
   - npm run dev
