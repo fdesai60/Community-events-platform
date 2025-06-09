@@ -16,14 +16,14 @@ export default function Home({ isStaff }) {
     async function fetchData() {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5001/api/events");
+        const res = await axios.get("https://events-platform-backend-yutm.onrender.com/api/events");
         setEvents(res.data);
 
         const { data } = await supabase.auth.getSession();
         const token = data.session?.access_token;
 
         if (token) {
-          const signedUpRes = await axios.get("http://localhost:5001/api/events/signed-up", {
+          const signedUpRes = await axios.get("https://events-platform-backend-yutm.onrender.com/api/events/signed-up", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const ids = signedUpRes.data.map((e) => e.id);
@@ -54,7 +54,7 @@ export default function Home({ isStaff }) {
       }
 
       await axios.post(
-        `http://localhost:5001/api/events/${eventId}/signup`,
+        `https://events-platform-backend-yutm.onrender.com/api/events/${eventId}/signup`,
         { user_id: userId },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -133,7 +133,7 @@ export default function Home({ isStaff }) {
         return;
       }
 
-      await axios.delete(`http://localhost:5001/api/events/${eventId}`, {
+      await axios.delete(`https://events-platform-backend-yutm.onrender.com/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -31,7 +31,7 @@ export default function CreateEvent() {
       }
 
       await axios.post(
-        "http://localhost:5001/api/events/create",
+        "https://events-platform-backend-yutm.onrender.com/api/events/create",
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );
