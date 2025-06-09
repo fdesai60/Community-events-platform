@@ -33,7 +33,7 @@ export default function CreateEvent() {
       }
 
       await axios.post(
-        `${BACKEND_URL}/api/events/create`,
+        `${BACKEND_URL}/events/create`,
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );
