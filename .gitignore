@@ -1,0 +1,8 @@
+# Ignore backend environment and modules
+/events-platform-backend/node_modules/
+/events-platform-backend/.env
+
+# Ignore frontend environment and modules
+/events-platform-frontend/node_modules/
+/events-platform-frontend/.env
+
