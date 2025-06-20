@@ -54,7 +54,7 @@ Regular User:
   
 Staff User:
 - GMAIL:testStaffUser82@gmail.com
-- PASSWORD:testStaffUser82
+- PASSWORD:TestStaff82!
   
 
   
