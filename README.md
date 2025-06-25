@@ -2,6 +2,15 @@
 - HOSTED FRONTEND (Netlify):https://community-events-platform.netlify.app/
 - HOSTED BACKEND  (Render) :https://events-platform-backend-yutm.onrender.com
 
+## Test account access details:
+Regular User:
+- GMAIL:testCommunityUser82@gmail.com
+- PASSWORD: TestUser82!
+  
+Staff User:
+- GMAIL:testStaffUser82@gmail.com
+- PASSWORD:TestStaff82!
+
 ## Project Summary
 This project is a community events platform built to allow users to browse, sign up for, and add events to their personal Google Calendars.
 Staff members have additional privileges to create and manage events.
@@ -22,39 +31,132 @@ The app implements secure authentication and role-based access control, ensuring
 ## How to Run Locally:
 Prerequisites:
 - Node.js and npm installed
-- Supabase project set up with credentials
-- Google Cloud Console configured for Google OAuth and Google Calendar API access
-- An .env file with the following variables in the events-platform-backend folder:
-  - DATABASE_URL
-  - SUPABASE_URL
-  - SUPABASE_SERVICE_ROLE_KEY
-  - SUPABASE_ANON_KEY
-- An .env file with the following variables in the events-platform-frontend folder:
-  - VITE_BACKEND_URL
-  - VITE_GOOGLE_CLIENT_ID
-  - VITE_SUPABASE_URL
-  - VITE_SUPABASE_CLIENT
-## Installation:
-- git clone this-repo
-- cd this-repo
-  - cd events-platform-backend
-  - npm install
-  - npm run dev
-  - cd events-platform-frontend
-  - npm install
-  - npm run dev
-  - NOTE:
-    - Regular users can sign up and login using Google OAuth.
-    - Use the /make-staff API endpoint to assign staff role to your email after signing up
-    
-## Test account access details:
-Regular User:
-- GMAIL:testCommunityUser82@gmail.com
-- PASSWORD: TestUser82!
-  
-Staff User:
-- GMAIL:testStaffUser82@gmail.com
-- PASSWORD:TestStaff82!
+
+Setup steps:
+1) clone the repository
+```
+git clone <your-repo-url>
+cd <your-repo-folder>
+```
+
+2) Install backend dependencies:
+```
+cd events-platform-backend
+npm install
+```
+
+3) In a new terminal, install frontend dependencies:
+```
+cd events-platform-frontend
+npm install
+```   
+
+## Setting Up Environment Variables
+Since the .env files contain sensitive information and are not included in the repo, you will need to create your own environment variables by setting up a Google Cloud project and a Supabase project.
+
+Follow the steps below in order:
+
+### Step 1: Setup Google Cloud Console Project
+1. Go to console.cloud.google.com
+2. Create a new project 
+3. Give it a Project Name (e.g. Community-events-platform)
+3. Leave the organization as “No organization” (default)
+4. Open the Navigation Menu → APIs & Services → Enabled APIs and services
+5. Click Enable APIs and services
+6. Search for Google Calendar API and enable it
   
 
   
+### Step 2: Configure OAuth Consent Screen
+1. In the Navigation Menu, select OAuth consent screen
+2. Click Get started
+3. Provide an App name and User support email
+4. Under Audience, choose External for the User type 
+5. Fill out the contact information and agree to data policies
+6. Under Branding, skip the logo and app domain fields for now (The authorised domain should be filled out automatically later on when we add an Authorised redirect URI)
+7. For Test users, add the emails above, ie:  
+  - testCommunityUser82@gmail.com
+  - testStaffUser82@gmail.com  
+  (Ignore any popup warnings)
+
+### Step 3: Add OAuth Scopes
+1. Still in OAuth consent screen, go to Data Access
+2. Select the following scopes:
+  - ../auth/userinfo.email
+  - ../auth/userinfo.profile
+  - openid
+  - Search for and select https://www.googleapis.com/auth/calendar
+
+### Step 4: Create OAuth Credentials
+1. Navigate to APIs & Services → Credentials
+2. Click Create Credentials → OAuth client ID
+3. Select Application type of Web application
+4. Name your client (e.g. Community-Events-Web-Client)
+5. Add Authorized JavaScript origins:
+  http://localhost:5173
+6. Do not add redirect URIs yet — this comes after Supabase setup
+7. Click Create and download the JSON credentials file
+8. From the JSON file, copy the client ID
+9. In the events-platform-frontend .env.example file, replace the placeholder value of VITE_GOOGLE_CLIENT_ID to be the client id
+
+### Step 5: Setup Supabase Project
+1. Go to app.supabase.com and create a new project
+2. Give it a name and password — remember this password!
+3. Navigate to SQL Editor
+4. Click New SQL Snippet
+5. Copy the SQL schema from events-platform-backend/db/db.setup.sql into the editor and run it
+6. Click Connect (near the top), scroll down to find the transaction pooler connection string (you may HAVE to use the downwards arrow key for this)
+
+### Step 6: Update .env.example in Backend
+1. Open events-platform-backend/.env.example
+2. Replace the placeholder DATABASE_URL with the connection string from Supabase (update the password to the one you created)
+
+### Step 7: Configure Google OAuth in Supabase
+1. Go to Authentication → Sign In/Providers
+2. Enable the Google provider toggle
+3. Paste your Client ID and Client Secret from Google Cloud Console
+
+### Step 8: Complete OAuth Redirect URI Setup
+1. Copy the callback URL for OAuth from supabase (where u had pasted in the Client ID and Client Secret )
+2. Go back to Google Cloud Console → APIs & Services → Credentials
+3. Edit your OAuth 2.0 Client ID → Add the Authorized redirect URI from Supabase (that we just copied in step 1 ie the callback URL for OAuth)
+
+### Step 9: Finalize Environment Variables
+1. In the backend .env.example file, add:
+- PORT=5001
+2. In the frontend .env.example add:
+- VITE_BACKEND_URL=http://localhost:5001/api
+3. In your Supabase project, navigate to Project Settings > Data API:
+4. Copy the project URL
+- Paste it as the value of SUPABASE_URL in your backend .env.example
+- Also paste it as the value of VITE_SUPABASE_URL in your frontend .env.example 
+5. In your Supabase project, go to Project Settings > API Keys:
+6. Copy the anon public key
+- Paste it as the value of SUPABASE_ANON_KEY in your backend .env.example
+- Also paste it as the value of VITE_SUPABASE_CLIENT in your frontend .env.example 
+7. Copy the service role secret and paste it as the value of SUPABASE_SERVICE_ROLE_KEY in your backend .env.example
+8. Finally, rename both .env.example files in backend and frontend folders to just .env
+
+### Step 10: Make the Staff User a Staff
+1. Run your backend and frontend locally:
+```
+# Backend
+cd events-platform-backend
+npm run dev 
+
+# Frontend (in new terminal)
+cd ../events-platform-frontend
+npm run dev
+```
+2.Open Insomnia or any API client
+3. Make a POST request to: http://localhost:5001/api/admin/make-staff
+4. Set the request body (JSON):
+```
+{
+  "email": "testStaffUser82@gmail.com"
+}
+```
+5. Send the request — this will assign the staff role to the test staff user
+6. You can now log using the Test account access details above as:
+- A Regular User
+- A Staff User (create/delete events!)
