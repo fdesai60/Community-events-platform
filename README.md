@@ -122,20 +122,16 @@ Follow the steps below in order:
 3. Edit your OAuth 2.0 Client ID → Add the Authorized redirect URI from Supabase (that we just copied in step 1 ie the callback URL for OAuth)
 
 ### Step 9: Finalize Environment Variables
-1. In the backend .env.example file, add:
-- PORT=5001
-2. In the frontend .env.example add:
-- VITE_BACKEND_URL=http://localhost:5001/api
-3. In your Supabase project, navigate to Project Settings > Data API:
-4. Copy the project URL
+1. In your Supabase project, navigate to Project Settings > Data API:
+2. Copy the project URL
 - Paste it as the value of SUPABASE_URL in your backend .env.example
 - Also paste it as the value of VITE_SUPABASE_URL in your frontend .env.example 
-5. In your Supabase project, go to Project Settings > API Keys:
-6. Copy the anon public key
+3. In your Supabase project, go to Project Settings > API Keys:
+4. Copy the anon public key
 - Paste it as the value of SUPABASE_ANON_KEY in your backend .env.example
 - Also paste it as the value of VITE_SUPABASE_CLIENT in your frontend .env.example 
-7. Copy the service role secret and paste it as the value of SUPABASE_SERVICE_ROLE_KEY in your backend .env.example
-8. Finally, rename both .env.example files in backend and frontend folders to just .env
+5. Copy the service role secret and paste it as the value of SUPABASE_SERVICE_ROLE_KEY in your backend .env.example
+6. Finally, rename both .env.example files in backend and frontend folders to just .env
 
 ### Step 10: Make the Staff User a Staff
 1. Run your backend and frontend locally:
