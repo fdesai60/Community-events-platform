@@ -1,4 +1,24 @@
 # Community Events Platform
+## Contents
+- [Hosted Links](#hosted-links)
+- [Test account access details](#test-account-access-details)
+- [Project Summary](#project-summary)
+- [Tech Stack](#tech-stack)
+- [Authentication and Authorization Details](#authentication-and-authorization-details)
+- [How to Run Locally](#how-to-run-locally)
+- [Setting Up Environment Variables](#setting-up-environment-variables)
+  - [Step 1: Setup Google Cloud Console Project](#step-1-setup-google-cloud-console-project)
+  - [Step 2: Configure OAuth Consent Screen](#step-2-configure-oauth-consent-screen)
+  - [Step 3: Add OAuth Scopes](#step-3-add-oauth-scopes)
+  - [Step 4: Create OAuth Credentials](#step-4-create-oauth-credentials)
+  - [Step 5: Setup Supabase Project](#step-5-setup-supabase-project)
+  - [Step 6: Update .env.example in Backend](#step-6-update-envexample-in-backend)
+  - [Step 7: Configure Google OAuth in Supabase](#step-7-configure-google-oauth-in-supabase)
+  - [Step 8: Complete OAuth Redirect URI Setup](#step-8-complete-oauth-redirect-uri-setup)
+  - [Step 9: Finalise Environment Variables](#step-9-finalise-environment-variables)
+  - [Step 10: Make the Staff User a Staff](#step-10-make-the-staff-user-a-staff)
+
+## Hosted links
 - HOSTED FRONTEND (Netlify):https://community-events-platform.netlify.app/
 - HOSTED BACKEND  (Render) :https://events-platform-backend-yutm.onrender.com
 
@@ -16,7 +36,7 @@ This project is a community events platform built to allow users to browse, sign
 Staff members have additional privileges to create and manage events.
 The app implements secure authentication and role-based access control, ensuring only staff can create or delete events.
 
-## The platform uses:
+## Tech Stack:
 - React with Vite for the frontend
 - Node.js with Express for the backend API
 - Supabase for user authentication and database management (PostgreSQL).
@@ -52,9 +72,9 @@ npm install
 ```   
 
 ## Setting Up Environment Variables
-Since the .env files contain sensitive information and are not included in the repo, you will need to create your own environment variables by setting up a Google Cloud project and a Supabase project.
-
-Follow the steps below in order:
+- Since the .env files contain sensitive information and are not included in the repo, you will need to create your own environment variables by setting up a Google Cloud project and a Supabase project.
+- If you'd prefer to skip the full setup process, feel free to email me at fdesai60@gmail.com, and I can privately share the required .env files with you.
+- Otherwise, follow the steps below to set everything up yourself.
 
 ### Step 1: Setup Google Cloud Console Project
 1. Go to console.cloud.google.com
@@ -116,12 +136,12 @@ Follow the steps below in order:
 2. Enable the Google provider toggle
 3. Paste your Client ID and Client Secret from Google Cloud Console
 
-### Step 8: Complete OAuth Redirect URI Setup
+### Step 8: Complete OAuth Redirect URI Setup
 1. Copy the callback URL for OAuth from supabase (where u had pasted in the Client ID and Client Secret )
 2. Go back to Google Cloud Console → APIs & Services → Credentials
 3. Edit your OAuth 2.0 Client ID → Add the Authorized redirect URI from Supabase (that we just copied in step 1 ie the callback URL for OAuth)
 
-### Step 9: Finalize Environment Variables
+### Step 9: Finalise Environment Variables
 1. In your Supabase project, navigate to Project Settings > Data API:
 2. Copy the project URL
 - Paste it as the value of SUPABASE_URL in your backend .env.example
