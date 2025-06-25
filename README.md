@@ -13,7 +13,7 @@
 
 
 ## 📑 Contents
-- [🔗 Hosted Links](#🔗-hosted-links)
+- [Hosted Links](#hosted-links)
 - [🔐 Test account access details](#🔐-test-account-access-details)
 - [📋 Project Summary](#📋-project-summary)
 - [🛠️ Tech Stack](#🛠️-tech-stack)
@@ -31,7 +31,7 @@
   - [Step 9: Finalise Environment Variables](#🔧-step-9-finalise-environment-variables)
   - [Step 10: Make the Staff User a Staff](#👥-step-10-make-the-staff-user-a-staff)
 
-## 🔗 Hosted links
+## Hosted links
 - HOSTED FRONTEND (Netlify):https://community-events-platform.netlify.app/
 - HOSTED BACKEND  (Render) :https://events-platform-backend-yutm.onrender.com
 
